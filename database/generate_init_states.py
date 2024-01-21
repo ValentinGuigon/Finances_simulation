@@ -1,0 +1,20 @@
+import pandas as pd
+from database.get_parameters import get_starting_parameters
+
+def create_init_states_df(market_parameters):
+    personal_parameters = get_starting_parameters(market_parameters)
+    data = {}
+    for param_type, dictionary in personal_parameters.items():
+        for key, value in dictionary.items():
+            data[f"{param_type}_{key}"] = [value]
+
+    return pd.DataFrame(data)
+
+def generate_init_csv(market_parameters):
+    df = create_init_states_df(market_parameters)
+
+    # Save the combined dataframe to a CSV file
+    df.to_csv('./database/init_states.csv', index=False)
+
+if __name__ == "__main__":
+    generate_init_csv()
