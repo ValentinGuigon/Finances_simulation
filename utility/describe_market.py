@@ -42,8 +42,10 @@ def annual_market_returns(market_parameters):
     # Describe the annual return
     print(f"\nAnnual return for {market_ticker} between {market_start_year} and {market_end_year}: \n {df['return_next_y'].describe()}")
 
+    print(f"\nWhen checking the annual return rate, the minimum value for {market_start_year}-{market_end_year} is {round(df['return_next_y'].min(), 2)} and maximum value is {round(df['return_next_y'].max(), 2)}. \nIn case it were from -34.1 to 38.7, for instance, we should not be panic if we see a drop of 30-40% in the total value in a certain year. In such cases, try to buy more in the dip, and the bull market will follow in 1-3 years.")
+
     # Save the figure
     cleaned_market_name = market_ticker.translate(str.maketrans('', '', '^'))
     file_path = f'./outputs/{cleaned_market_name}_annual_return.png'
-    plt.show()
     plt.savefig(file_path)  # Change the file extension based on your preferred format (e.g., '.png', '.jpg', '.pdf')
+    plt.show()

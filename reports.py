@@ -74,8 +74,8 @@ def generate_graphs(results_list):
 
     # Save the figure
     file_path = f'./outputs/annual_returns.png'
-    plt.show()
     plt.savefig(file_path)  # Change the file extension based on your preferred format (e.g., '.png', '.jpg', '.pdf')
+    plt.show()
 
 
 # Define a function to generate a numeric summary report
@@ -91,6 +91,7 @@ def generate_metrics(results_list):
     metrics_df['Period'] = range(1,months+1)
     type(simulation_starting_date)
     metrics_df['Date'] = [(dt.strptime(simulation_starting_date, '%m/%d/%Y') + timedelta(days=30 * period)).strftime('%m/%d/%Y') for period in range(months)]
+    metrics_df['Status'] = ['retired' if i > variables['retirement_year'] * 12 else 'employed' if income_gains_storage[i] != 0 else 'unemployed' for i in range(months)]
     metrics_df['Income'] = income_gains_storage
     metrics_df['Outflows'] = income_losses_storage
 
@@ -145,7 +146,7 @@ def generate_metrics(results_list):
 
     # Display the DataFrame
     summary = metrics_df.dropna(axis=0, how='any').describe(include='all')
-    print(f"Summary for Assets starting, Outflow, etc.: \n\n  {summary}")
+    print(f"\n Summary for Assets starting, Outflow, etc.: \n  {summary}")
 
 
 def transactions_summary(transactions_df):

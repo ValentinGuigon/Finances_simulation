@@ -40,7 +40,7 @@ def get_starting_parameters(market_parameters):
 
         variables = {'start_date' : "03/01/2024",
                 'state': "init",
-                'years': 36, 
+                'years': 50, 
                 'retirement_year': 36,
                 'tax_on_active_income_gains': 0, # add our tax rate on active income in % terms
                 'avg_ann_income_raise': 0.015, # add our annual salary raise in % terms
@@ -109,7 +109,7 @@ def get_new_parameters():
         'misc_food_beverages':400,
         'misc_sports':50}
 
-        new_states_list = [
+        new_parameters_list = [
         update_us_salary,
         first_us_taxation, 
         back_to_france, 
@@ -118,4 +118,4 @@ def get_new_parameters():
         dr_classe_2_at_cnrs
         ]
         
-        return new_states_list
+        return new_parameters_list

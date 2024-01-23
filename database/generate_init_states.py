@@ -1,3 +1,4 @@
+import os
 import pandas as pd
 from database.get_parameters import get_starting_parameters
 
@@ -14,7 +15,10 @@ def generate_init_csv(market_parameters):
     df = create_init_states_df(market_parameters)
 
     # Save the combined dataframe to a CSV file
-    df.to_csv('./database/init_states.csv', index=False)
+    current_dir = os.path.dirname(os.path.realpath(__file__))
+    starting_parameters_rel_path = os.path.join('..', 'database', 'init_states.csv')
+    starting_parameters_path = os.path.abspath(os.path.join(current_dir, starting_parameters_rel_path))
+    df.to_csv(starting_parameters_path, index=False)
 
 if __name__ == "__main__":
     generate_init_csv()

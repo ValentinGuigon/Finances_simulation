@@ -1,3 +1,4 @@
+import os
 import pandas as pd
 from database.get_parameters import get_new_parameters
 
@@ -36,12 +37,15 @@ def create_updated_states_df(starting_parameters, new_states_list):
     return new_states_parameters
 
 
-def main():
+def generate_new_csv():
     # Get the starting parameters for the model into a DataFrame
-    starting_parameters = pd.read_csv('./database/init_states.csv')
+    current_dir = os.path.dirname(os.path.realpath(__file__))
+    starting_parameters_rel_path = os.path.join('..', 'database', 'init_states.csv')
+    starting_parameters_path = os.path.abspath(os.path.join(current_dir, starting_parameters_rel_path))
+    starting_parameters = pd.read_csv(starting_parameters_path)
 
     # Get the new parameters
-    new_parameters = get_new_parameters()
+    new_parameters_list = get_new_parameters()
 
     # Generate new states DataFrame from the starting and the new parameters
     new_states_df = create_updated_states_df(starting_parameters, new_parameters_list)
@@ -52,11 +56,10 @@ def main():
         blank_rows = total_rows_needed - len(new_states_df)
         new_states_df = pd.concat([new_states_df, pd.DataFrame([{}]*blank_rows)], ignore_index=True)
 
-    # Print the DataFrame to check if it contains the expected data
-    print(new_states_df)
-
     # Save the DataFrame to a CSV file
-    new_states_df.to_csv('./database/updated_states.csv', index=False)
+    new_parameters_rel_path = os.path.join('..', 'database', 'updated_states.csv')
+    new_parameters_path = os.path.abspath(os.path.join(current_dir, new_parameters_rel_path))
+    new_states_df.to_csv(new_parameters_path, index=False)
 
 if __name__ == "__main__":
-    main()
+    generate_new_csv()
