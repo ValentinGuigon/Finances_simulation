@@ -38,9 +38,12 @@ def annual_market_returns(market_parameters):
     plt.ylabel('Return next year')
     plt.title('Evolution of the market throughout the years')
     plt.legend()
-    plt.show()
 
     # Describe the annual return
-    print(f"Annual return for {market_ticker} between {market_start_year} and {market_end_year}: \n\n  {df['return_next_y'].describe()}")
+    print(f"\nAnnual return for {market_ticker} between {market_start_year} and {market_end_year}: \n {df['return_next_y'].describe()}")
 
-
+    # Save the figure
+    cleaned_market_name = market_ticker.translate(str.maketrans('', '', '^'))
+    file_path = f'./outputs/{cleaned_market_name}_annual_return.png'
+    plt.show()
+    plt.savefig(file_path)  # Change the file extension based on your preferred format (e.g., '.png', '.jpg', '.pdf')

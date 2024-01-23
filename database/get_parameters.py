@@ -43,7 +43,7 @@ def get_starting_parameters(market_parameters):
                 'years': 36, 
                 'retirement_year': 36,
                 'tax_on_active_income_gains': 0, # add our tax rate on active income in % terms
-                'avg_ann_income_raise': 0, # add our annual salary raise in % terms
+                'avg_ann_income_raise': 0.015, # add our annual salary raise in % terms
                 'avg_ann_inflation': 0.015, # add annual inflation rate (mean inflation rate for France 1990-2020)
                 'tax_on_investment_gains': 0.2, # add investment returns tax rate
                 'avg_monthly_market_returns': mkt_history_monthly_pct_return, # add market return data to our inputs

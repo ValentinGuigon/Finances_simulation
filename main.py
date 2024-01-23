@@ -31,7 +31,8 @@ transactions_df = pd.DataFrame(columns=TRANSACTION_COLUMNS)
 # Describe the annual return of a specific market 
 annual_market_returns = annual_market_returns(market_parameters)
 
-# When checking the annual return rate, the minimum value is -0.05% and maximum value is 38.7%. In case it were from -34.1 to 38.7, for instance, we should not be panic if we see a drop of 30-40% in the total value in a certain year. In such cases, try to buy more in the dip, and the bull market will follow in 1-3 years.
+# When checking the annual return rate, the minimum value for 2009-2023 is -0.05% and maximum value is 38.7%. 
+# In case it were from -34.1 to 38.7, for instance, we should not be panic if we see a drop of 30-40% in the total value in a certain year. In such cases, try to buy more in the dip, and the bull market will follow in 1-3 years.
 
 
 # Compute gains

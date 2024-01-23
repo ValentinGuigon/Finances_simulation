@@ -1,32 +1,41 @@
-def update_parameters_from_dataframe(dataframe, input_dict):
-    updated_dicts = {}
+def compute_gains(init_states_df, updated_states_df):
+    economic_states_df = init_states_df
 
-    # Iterate through keys in the input dictionary
-    for prefix, inner_dict in input_dict.items():
-        if not isinstance(inner_dict, dict):
-            raise ValueError(f"Value for key '{prefix}' must be a dictionary.")
+    # ... (Other code remains unchanged)
 
-        # Extract data from the DataFrame for the given prefix
-        prefix_columns = [col for col in dataframe.columns if col.startswith(f"{prefix}_")]
-        prefix_dict = {col.split(f"{prefix}_")[1]: dataframe.at[0, col] for col in prefix_columns}
+    ruined = False  # signals if we have become financially "ruined"
 
-        # Create a new dictionary with updated values
-        updated_dict = {**inner_dict, **prefix_dict}
+    for month in range(months):
+        # ... (Previous code remains unchanged)
 
-        updated_dicts[prefix] = updated_dict
+        # Check for potential updates in the states
+        if updated_states_df.loc[month - 1, 'variables_state'] == "updated":
+            filtered_df = updated_states_df.loc[month - 1:month - 1, :]
+            # Only some columns are completed
+            filtered_df = filtered_df.fillna(economic_states_df.iloc[-1, :])
+            inflows, strategy, misc, outflows, variables = update_parameters_from_dataframe(filtered_df, parameters)
 
-    return tuple(updated_dicts.values())
+        else:
+            # Use the last state
+            filtered_df = economic_states_df.iloc[-1, :]
+            inflows, strategy, misc, outflows, variables = update_parameters_from_dataframe(economic_states_df, parameters)
 
-# Assuming you have a dictionary named 'all_parameters'
-all_parameters = {
-    'inflows': {'active_annual_income': 72000, 'livret_A': 24040.125, 'livret_LDDS': 23695.875},
-    'strategy': {'some_strategy_param': 0.05, 'another_strategy_param': 0.1},
-    'misc': {'some_misc_param': 'value'},
-    'outflows': {'expenses_1': 1000, 'expenses_2': 1500},
-    'variables': {'start_date': '01/01/2022', 'years': 10}
-}
+        # ... (Rest of the loop remains unchanged)
 
-# Call the function with the modified signature
-result_tuple = update_parameters_from_dataframe(economic_states_df, all_parameters)
+        # Check if asset base has a positive value; if not, set the "ruined" flag to True and end the simulation
+        if assets < 0:
+            ruined = True
+            break
 
-# The result_tuple will contain the updated dictionaries
+        # Check if savings have a positive value; if not, set the "ruined" flag to True and end the simulation
+        if sum(savings_plan_storage) < 0:
+            ruined = True
+            break
+
+        # ... (Continue with the remaining code)
+
+    # ... (Remaining code remains unchanged)
+
+    return [inflows, income_gains_storage, income_losses_storage, income_after_saving_storage, investment_gains_storage,
+            assets_ending_list, assets_starting_list, outflows, livret_A_list, livret_LDDS_list, livret_LEP_list,
+            total_ending_list, ruined, variables, simulation_starting_date]

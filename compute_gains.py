@@ -29,6 +29,7 @@ def compute_gains(init_states_df, updated_states_df):
     # create lists to store each period's income, investments, savings and assets
     income_gains_storage = []
     income_losses_storage = []
+    income_after_saving_storage = []
     investment_gains_storage = [] 
     assets_ending_list = []
     livret_A_list, livret_LDDS_list, livret_LEP_list = [], [], []
@@ -37,6 +38,7 @@ def compute_gains(init_states_df, updated_states_df):
     savings_plan_storage = [sum([inflows['livret_A'], inflows['livret_LDDS'], inflows['livret_LEP']])]
 
     months = int(variables['years'] * 12)
+    simulation_starting_date = variables['start_date']
     ruined = False # signals if we have become financially "ruined"
     
     for month in range(months):
@@ -74,12 +76,12 @@ def compute_gains(init_states_df, updated_states_df):
         # we calculate income gains (including retirement and taxes)
         income = calculate_income(month, inflows, variables)
         income_gains_storage.append(income)
-        income_losses_storage.append(np.mean(list(outflows.values())) )
 
 
         # then we subtract our monthly costs from our income and take into account the inflation
         outflow = calculate_outflows(month, outflows, variables)
         income -= outflow
+        income_losses_storage.append(outflow)
 
         # check if asset base has a pos. value; if not then set the "ruined" flag to 1 and end the simulation
         if assets < 0:
@@ -107,9 +109,10 @@ def compute_gains(init_states_df, updated_states_df):
         livret_LEP_list.append(inflows['livret_LEP'])
 
 
-        # then follow the savings strategy to update savings
+        # then follow the savings strategy to update savings and put the rest in the assets
         inflows, income_after_saving, savings_plan_storage = update_savings(inflows, income, strategy, savings_plan_storage)
         assets += income_after_saving
+        income_after_saving_storage.append(income_after_saving)
 
 
         # calculate the end of period
@@ -141,5 +144,5 @@ def compute_gains(init_states_df, updated_states_df):
     economic_states_df.to_csv('./database/economic_projections.csv', index=False)
 
 
-    return [inflows, income_gains_storage, income_losses_storage, income_after_saving, investment_gains_storage, assets_ending_list, assets_starting_list, outflows, livret_A_list, livret_LDDS_list, livret_LEP_list, total_ending_list, ruined, variables]
+    return [inflows, income_gains_storage, income_losses_storage, income_after_saving_storage, investment_gains_storage, assets_ending_list, assets_starting_list, outflows, livret_A_list, livret_LDDS_list, livret_LEP_list, total_ending_list, ruined, variables, simulation_starting_date]
 
