@@ -1,29 +1,29 @@
 # Getting Started
 
-1. Step 1: Choose your parameters
+1. Step 1: Choose your parameters  
 Model parameters are approximations based from my experience as a French citizen. Please modify the parameters as you wish in *get_parameters.py*.
 
-2. Step 2: Calculate the Required Retirement Fund
+2. Step 2: Calculate the Required Retirement Fund  
 Choose the amount you wish to decude from your assets as monthly pension in *predict_retirement.py*
 
-3. Step 3: Long-Term Investment Planning
+3. Step 3: Long-Term Investment Planning  
 Given the metric and graphical outputs from the assets modeling and the retirement modeling, adjust your planning
 
 
 ## Notes on the modelling
 
-- Set a Realistic Retirement Income Goal
+- Set a Realistic Retirement Income Goal  
 Determine the amount of money you wish to have as annual income after retirement. For instance, if your goal is 3,000 $ per month, this equates to 36,000 $ per year.
 
-- Consider the Impact of Inflation
+- Consider the Impact of Inflation  
 Recognize the effect of inflation on your future purchasing power. Adjust your retirement income goal accordingly, taking into account a realistic inflation rate. For instance, a 3% annual inflation rate implies that the value of money will decrease over time.
 
-- Compute the Required Retirement Fund wisely
+- Compute the Required Retirement Fund wisely  
 Assuming a certain interest rate on your investments (e.g., 5% per year), use the formula: 
-Retirement Fund = Annual Income / Interest Rate
+Retirement Fund = Annual Income / Interest Rate  
 This calculation helps you determine the total amount needed in your retirement fund to generate the desired annual income.
 
-- Mind the known unknown variables and the unknown unknown variables
+- Mind the known unknown variables and the unknown unknown variables  
 Estimate the annual investment required to reach your retirement fund goal. This involves factoring in the desired retirement fund, expected return on investment, and adjustments for inflation.
 
 
@@ -79,9 +79,8 @@ What's the right choice between physical and synthetic replication? What are the
 * If you do have a choice, synthetic replication is, on average, much more faithful to the index than physical replication for the same assets and index. However, synthetic replication is more complex to understand, and if you don't understand it, you're better off investing in physical replication.
 * Both methods are equivalent over the long term and present similar counterparty risks: physical replication with securities lending (completely opaque, with an underlying conflict of interest), synthetic replication with the concentration of risk on a single counterparty.
 
-The risks associated with replication are negligible compared with the market risks of the indices being replicated.
-[The underlying bet in equity investing is the bet in the stability of systemically important banks, which are behind almost all European ETFs.](https://www.fsb.org/wp-content/uploads/P211122.pdf)
-
+The risks associated with replication are negligible compared with the market risks of the indices being replicated.  
+[The underlying bet in equity investing is the bet in the stability of systemically important banks, which are behind almost all European ETFs.](https://www.fsb.org/wp-content/uploads/P211122.pdf)  
 [More on counterparty risk in this research paper](https://papers.ssrn.com/sol3/Delivery.cfm/SSRN_ID3352711_code271616.pdf?abstractid=2462747&mirid=1)
 
 
@@ -147,5 +146,5 @@ Si oui, ouvre un menu avec tous les params: prendre la valeur donnée si existe,
 
 # Acknowledgments
 
-I'd like first to thank **Stuart J.** for his series on creating a personal portoflio/wealth simulation if Python. I got started by implementing his great tutorial from [Python For Finance](https://www.pythonforfinance.net/2021/06/13/create-a-personal-portfolio-wealth-simulation-in-python/)
-I'd like to thank **Tony Yiu** and his series on simulating retirement. I Implemented his retirement simulation from [Towards Data Science](https://towardsdatascience.com/do-i-have-enough-money-to-retire-af7914a07b34)
+* I'd like first to thank **Stuart J.** for his series on creating a personal portoflio/wealth simulation if Python. I got started by implementing his great tutorial from [Python For Finance](https://www.pythonforfinance.net/2021/06/13/create-a-personal-portfolio-wealth-simulation-in-python/)  
+* I'd like to thank **Tony Yiu** and his series on simulating retirement. I Implemented his retirement simulation from [Towards Data Science](https://towardsdatascience.com/do-i-have-enough-money-to-retire-af7914a07b34)
