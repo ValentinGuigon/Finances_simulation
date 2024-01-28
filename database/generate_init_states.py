@@ -1,6 +1,6 @@
 import os
 import pandas as pd
-from database.get_parameters import get_starting_parameters
+from get_parameters import get_starting_parameters
 
 def create_init_states_df(market_parameters):
     personal_parameters = get_starting_parameters(market_parameters)

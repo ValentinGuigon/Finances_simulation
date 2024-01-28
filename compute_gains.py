@@ -3,8 +3,8 @@ import pandas as pd
 import numpy as np
 import random
 import datetime
-from utility.calculation_functions import *
-from utility.update_functions import *
+from gains.calculation_functions import *
+from gains.update_functions import *
 
 # set the numpy random seed to allow replication of results
 np.random.seed(seed=7)

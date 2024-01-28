@@ -4,8 +4,8 @@ import random
 from datetime import datetime as dt, timedelta
 import matplotlib as mpl
 import matplotlib.pyplot as plt
-from database.get_parameters import get_starting_parameters
-from utility.calculation_functions import *
+from get_parameters import get_starting_parameters
+from gains.calculation_functions import *
 
 # set the numpy random seed to allow replication of results
 np.random.seed(seed=7)
@@ -106,8 +106,8 @@ def generate_metrics(results_list):
     # metrics_df['End Livret LEP'] = livret_LEP_list
     metrics_df['End Total Savings'] = [sum(x) for x in zip(livret_A_list, livret_LDDS_list, livret_LEP_list)]
     metrics_df['Savings Value Change'] = metrics_df['End Total Savings'] - metrics_df['Begin Total Savings']
-    metrics_df['Savings Return'] = (metrics_df['End Total Savings'] - metrics_df['Begin Total Savings']) / metrics_df['Begin Total Savings']
-
+    metrics_df['Savings Return'] = (metrics_df['End Total Savings'] - metrics_df['Amount To Save'] - metrics_df['Begin Total Savings']) / (metrics_df['Begin Total Savings'] - metrics_df['Amount To Save'])
+    metrics_df['Savings Return Annualized'] = metrics_df['Savings Return']*12
     # Calculate and store metrics for each period part 3
     metrics_df['Begin Investment Portfolio'] = assets_starting_list
     metrics_df['Investment Return'] = investment_gains_storage

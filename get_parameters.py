@@ -13,10 +13,10 @@ def get_starting_parameters(market_parameters):
                 'annual_rate_livret_LDDS':0.03,
                 'annual_rate_livret_LEP':0.05,
                 'max_livret_A':22950,
-                'max_livret_LDDS':22950,
+                'max_livret_LDDS':12000,
                 'max_livret_LEP':10000,
                 'starting_assets': 0, # add value of starting assets
-                'monthly_pension': 2000, # add estimated post-retirement monthly pension
+                'monthly_pension': 3000, # add estimated post-retirement monthly pension
                 'premium': 0} 
 
         strategy = {'saving_plan': inflows['max_livret_A'] + inflows['max_livret_LDDS'] + inflows['max_livret_LEP']
@@ -39,6 +39,7 @@ def get_starting_parameters(market_parameters):
         mkt_history_monthly_pct_return, mkt_history_monthly_std_dev = get_monthly_average_return(market_parameters)
 
         variables = {'start_date' : "03/01/2024",
+                'date_of_birth': "10/19/1992",
                 'state': "init",
                 'years': 50, 
                 'retirement_year': 36,

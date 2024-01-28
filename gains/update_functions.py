@@ -1,9 +1,6 @@
 import pandas as pd
 import numpy as np
 
-
-import pandas as pd
-
 def parameters_to_dataframe(parameters):
     data = {}
     for param_type, param_dict in parameters.items():

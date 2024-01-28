@@ -1,6 +1,6 @@
 import os
 import pandas as pd
-from database.get_parameters import get_new_parameters
+from get_parameters import get_new_parameters
 
 def create_updated_states_df(starting_parameters, new_states_list):
     # Make a copy of starting parameters to avoid modifying the original
