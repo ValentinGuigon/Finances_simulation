@@ -1,7 +1,7 @@
 import pandas as pd
 import datetime
 import yfinance as yf
-
+import numpy as np
 
 def download_market_history(market_ticker, market_start_year, market_end_year):
     # download S&P historic prices data
@@ -26,6 +26,7 @@ def get_monthly_average_return(market_parameters):
     # Calculate average monthly return & volatility
     mkt_history_monthly_pct_return = market_history.resample('M').last().pct_change().mean()
     mkt_history_monthly_std_dev = market_history.resample('M').last().pct_change().std()
+    print(f"Monthly average return: mean={np.round(mkt_history_monthly_pct_return, decimals=4)}, sd={np.round(mkt_history_monthly_std_dev, decimals=4)}")
 
     return mkt_history_monthly_pct_return, mkt_history_monthly_std_dev
 

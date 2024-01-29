@@ -27,7 +27,8 @@ def predict_retirement():
     spend = (economic_projections['inflows_monthly_pension'].iloc[0]*12)/1000       # in $USD Thousands
     sims = 5000
 
-    W0 = np.array([0.1, 0.2, 0.5, 0.1, 0.2])
+    W0 = np.array([0.1, 0.2, 0.4, 0.1, 0.2]) # initial allocation percentages for the asset classes:
+    # T-Bills: 10%, T-Bonds: 20%, S&P 500 (LC_Stocks): 40%, Commodities: 10%, EM Stocks: 20%
     parameters = [pre_ret, N, start_wealth, sims]
     spend2 = spend+10
 
@@ -55,6 +56,7 @@ def predict_retirement():
 
     # Generate portfolio returns from correlated, random variables
     W_dict, W, L, corr_returns = simulate_portfolio(W0, corr_matrix, cov_matrix, exp_ret, vol, sims, N)
+    print(f"Optimized portfolio allocation: {dict(zip(W_dict.keys(), np.round(np.array(list(W_dict.values())), decimals=2)))}")
 
     # Forecasts the wealths based on simulated asset class returns, inflation, and spending
     perc_df_scenario1, wealths_scenario1 = get_wealths(parameters, W, L, corr_returns, real=True, spend=spend)

@@ -30,17 +30,17 @@ asset_names = ['US T-Bills', 'US T-Bonds', 'S&P 500', 'Commodities', 'EM Stocks'
 fig, ax = plt.subplots(figsize=(8,8))
 sns.heatmap(corr_matrix, square=True, cmap="RdBu_r", annot=True, 
             xticklabels=asset_names, yticklabels=asset_names);
-plt.savefig(fname='asset_corr_matrix', dpi=150)
+plt.savefig(fname='./misc/asset_corr_matrix', dpi=150)
 
 
 # Examine whether S&P 500 returns exhibit fat tails (Using post World War 2 data)
 mu = (1 + exp_ret[2])**(1/12)-1
 sigma = vol[2]/(12**0.5)
-stock_ret = pd.read_csv('./tests/SP500_data.csv')
+stock_ret = pd.read_csv('./retirement/SP500_data.csv')
 modern_ret = stock_ret.loc[948:].copy()
 mth_ret = modern_ret['SP500']/modern_ret['SP500'].shift(1) - 1
 ax = sm.qqplot(mth_ret.iloc[1:], loc=mu, scale=sigma, fit=True, line='45')
-plt.savefig(fname='qq_plot', dpi=150)
+plt.savefig(fname='./misc/qq_plot', dpi=150)
 # plt.show()
 
 
@@ -139,6 +139,8 @@ def get_wealths(W, N, start_wealth, L, corr_returns, real=False, spend=28, infl=
 
 # First we get the weights of the optimal portfolio at our target risk (that gets us 60% invested in risky assets)
 W_dict, W = optimize_portfolio(W0, cov_matrix, exp_ret, vol=0.10, verbose=True)
+print(f"Optimized portfolio allocation: {dict(zip(W_dict.keys(), np.round(np.array(list(W_dict.values())), decimals=2)))}")
+
 
 # Now run and plot the wealth/retirement simulation
 perc_df_1, wealths_1 = get_wealths(W, N, start_wealth, L, corr_returns, spend=spend, real=True)
@@ -173,7 +175,7 @@ plt.legend(loc='upper left')
 plt.xlim(55, 55+N)
 plt.tight_layout()
 
-plt.savefig(fname='port_return', dpi=150)
+plt.savefig(fname='./misc/port_return', dpi=150)
 plt.show()
 
 
@@ -189,7 +191,7 @@ ax.set_ylabel("Frequency",fontsize=16)
 plt.legend()
 plt.tight_layout()
 
-plt.savefig(fname='port_hist', dpi=150)
+plt.savefig(fname='./misc/port_hist', dpi=150)
 plt.show()
 
 

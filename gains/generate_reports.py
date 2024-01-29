@@ -44,33 +44,35 @@ def generate_graphs(results_list):
 
     configs = [
         {'data': pd.Series(income_gains_storage).cumsum(), 'xlabel': 'Months', 'ylabel': 'Cumulative Income',
-         'title': 'Cumulative Income Over Time', 'x_line': retirement_age, 'label': 'Income', 'ylim': [0, 400000]},
+         'title': 'Cumulative Income Over Time', 'x_line': retirement_age, 'label': 'Income', 'ylim': [0, 3000000], 'grid': True},
 
         {'data': pd.Series(investment_gains_storage).cumsum(), 'xlabel': 'Month',
-         'ylabel': 'Cumulative Investment Returns', 'title': 'Cumulative Investment Returns Over Time', 'x_line': retirement_age, 'label': 'Investment'},
+         'ylabel': 'Cumulative Investment Returns', 'title': 'Cumulative Investment Returns Over Time', 'x_line': retirement_age, 'label': 'Investment', 'ylim': [0, 5000000], 'grid': True},
 
         {'data': pd.Series(income_losses_storage).cumsum(), 'xlabel': 'Month', 'ylabel': 'Common Outflows',
-         'title': 'Cumulative Outflows Over Time', 'x_line': retirement_age, 'label': 'Outflows'},
+         'title': 'Cumulative Outflows Over Time', 'x_line': retirement_age, 'label': 'Outflows', 'ylim': [0, 3000000], 'grid': True},
 
         {'data': pd.Series(assets_ending_list), 'xlabel': 'Month', 'ylabel': 'Ending Asset Value',
-         'title': 'Ending Asset Value after each period', 'x_line': retirement_age, 'label': 'Asset Value'},
+         'title': 'Ending Asset Value after each period', 'x_line': retirement_age, 'label': 'Asset Value','ylim': [0, max(assets_ending_list)* 1.1], 'grid': True},
 
          {'data': pd.Series(livret_A_list), 'xlabel': 'Month', 'ylabel': 'Savings Value',
-         'title': 'Livret A after each period', 'x_line': retirement_age, 'label': 'Asset Value', 'ylim': [0, 100000]},
+         'title': 'Livret A after each period', 'x_line': retirement_age, 'label': 'Asset Value', 'ylim': [0, max(livret_A_list)* 1.1], 'grid': True},
 
          {'data': pd.Series(livret_LDDS_list), 'xlabel': 'Month', 'ylabel': 'Savings Value',
-         'title': 'Livret LDDS after each period', 'x_line': retirement_age, 'label': 'Asset Value', 'ylim': [0, 100000]},
+         'title': 'Livret LDDS after each period', 'x_line': retirement_age, 'label': 'Asset Value', 'ylim': [0, max(livret_LDDS_list)* 1.1], 'grid': True},
 
          {'data': pd.Series(livret_LEP_list), 'xlabel': 'Month', 'ylabel': 'Savings Value',
-         'title': 'Livret LEP after each period', 'x_line': retirement_age, 'label': 'Asset Value', 'ylim': [0, 50000]},
+         'title': 'Livret LEP after each period', 'x_line': retirement_age, 'label': 'Asset Value', 'ylim': [0, max(livret_LEP_list)* 1.1], 'grid': True},
 
          {'data': pd.Series(total_ending_list), 'xlabel': 'Month', 'ylabel': 'Ending Total Value',
-         'title': 'Ending Total Value after each period', 'x_line': retirement_age, 'label': 'Asset Value'},
+         'title': 'Ending Total Value after each period', 'x_line': retirement_age, 'label': 'Asset Value','ylim': [0, max(total_ending_list)* 1.1], 'grid': True},
     ]
 
     for i, config in enumerate(configs, start=1):
         plt.subplot(4, 2, i)
         plot_subplot(config['data'], config)
+        if 'grid' in config and config['grid']:
+            plt.grid(True)
 
     # Save the figure
     file_path = f'./outputs/annual_returns.png'
@@ -105,8 +107,9 @@ def generate_metrics(results_list):
     # metrics_df['End Livret LDDS'] = livret_LDDS_list
     # metrics_df['End Livret LEP'] = livret_LEP_list
     metrics_df['End Total Savings'] = [sum(x) for x in zip(livret_A_list, livret_LDDS_list, livret_LEP_list)]
+    metrics_df['Amount Saved'] = metrics_df['Amount To Save'] - income_after_saving_storage
     metrics_df['Savings Value Change'] = metrics_df['End Total Savings'] - metrics_df['Begin Total Savings']
-    metrics_df['Savings Return'] = (metrics_df['End Total Savings'] - metrics_df['Amount To Save'] - metrics_df['Begin Total Savings']) / (metrics_df['Begin Total Savings'] - metrics_df['Amount To Save'])
+    metrics_df['Savings Return'] = (metrics_df['End Total Savings'] - metrics_df['Amount Saved'] - metrics_df['Begin Total Savings']) / (metrics_df['Begin Total Savings'] - metrics_df['Amount Saved'])
     metrics_df['Savings Return Annualized'] = metrics_df['Savings Return']*12
     # Calculate and store metrics for each period part 3
     metrics_df['Begin Investment Portfolio'] = assets_starting_list
@@ -114,7 +117,8 @@ def generate_metrics(results_list):
     metrics_df['Amount To Invest'] = income_after_saving_storage
     metrics_df['End Investment Portfolio'] = assets_ending_list
     metrics_df['Portfolio Value Change'] = metrics_df['End Investment Portfolio'] - metrics_df['Begin Investment Portfolio']
-    metrics_df['Investment Return Rate'] = (metrics_df['End Investment Portfolio'] - metrics_df['Begin Investment Portfolio']) / metrics_df['Begin Investment Portfolio']
+    # metrics_df['Investment Return'] = (metrics_df['End Investment Portfolio'] - metrics_df['Amount To Invest'] - metrics_df['Begin Investment Portfolio']) / (metrics_df['Begin Investment Portfolio'] - metrics_df['Amount To Invest'])
+    metrics_df['Investment Return Annualized'] = metrics_df['Investment Return']*12
     metrics_df['Cumulative Returns'] = np.cumsum(metrics_df['Investment Return'])
 
     # Calculate and store metrics for each period part 4: Drawdown
@@ -137,7 +141,7 @@ def generate_metrics(results_list):
     metrics_df['Begin Total Assets'] = [np.nan] + total_ending_list[:-1]
     metrics_df['End Total Assets'] = total_ending_list
     metrics_df['Total Assets Value Change'] = metrics_df['End Total Assets'] - metrics_df['Begin Total Assets']
-    metrics_df['Total Assets Return Rate'] = (metrics_df['End Total Assets'] - metrics_df['Begin Total Assets']) / metrics_df['Begin Total Assets']
+    metrics_df['Total Assets Return'] = (metrics_df['End Total Assets'] - metrics_df['Begin Total Assets']) / metrics_df['Begin Total Assets']
     
     metrics_df = metrics_df.round(2)
 

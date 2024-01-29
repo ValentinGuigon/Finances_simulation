@@ -14,10 +14,9 @@ market_ticker = "^SP500TR" # Choose the ticker for the market to simulate
 market_start_year = 2009
 market_end_year = 2023
 market_parameters = [market_ticker, market_start_year, market_end_year]
-generate_new_csv = True # True: generate states csv
+generate_new_csv = False # True: generate states csv
 include_update_states = True # True: simulate with new states as defined in get_historic_data.py
-# compute_retirement = False 
-# -> repenser toute l'architecture pour la retraite. C'est un sacré morceau
+
 
 # Define new market parameters
 if generate_new_csv == True:
@@ -46,10 +45,3 @@ generate_metrics(results_list)
 
 # Simulate a retirement
 predict_retirement()
-
-
-# # Plan new states here, such as economic shocks (e.g., change of income, early retirement, expensive rent, etc.):
-# new_state = apply_shocking_state(economic_states_df, starting_period = 37, ending_period = variables['years']*12, 
-#      credit_card_payment = 650, pension_contribution = 250)
-# # specify the starting and ending period as well as the parameters you wish to change
-

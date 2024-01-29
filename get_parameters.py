@@ -15,8 +15,8 @@ def get_starting_parameters(market_parameters):
                 'max_livret_A':22950,
                 'max_livret_LDDS':12000,
                 'max_livret_LEP':10000,
-                'starting_assets': 0, # add value of starting assets
-                'monthly_pension': 3000, # add estimated post-retirement monthly pension
+                'starting_assets':0, # add value of starting assets
+                'monthly_pension':3000, # add estimated post-retirement monthly pension
                 'premium': 0} 
 
         strategy = {'saving_plan': inflows['max_livret_A'] + inflows['max_livret_LDDS'] + inflows['max_livret_LEP']
@@ -26,7 +26,8 @@ def get_starting_parameters(market_parameters):
                 'sports':100,
                 'arts':100,
                 'nightlife':300,
-                'phone_internet_and_so':100}
+                'phone_internet_and_so':100,
+                'family':0}
 
         outflows = {'rent':1500,
                 'credit_card_payment':30,
@@ -88,7 +89,8 @@ def get_new_parameters():
         'outflows_rent':800,
         'outflows_medical_insurance':60,
         'misc_food_beverages':400,
-        'misc_sports':50}
+        'misc_sports':50,
+        'misc_family':500}
 
         cr_hors_classe_at_cnrs = {'variables_start_date': '03/01/2031', 
         'variables_state': "updated",
@@ -98,7 +100,8 @@ def get_new_parameters():
         'outflows_rent':800,
         'outflows_medical_insurance':60,
         'misc_food_beverages':400,
-        'misc_sports':50}
+        'misc_sports':50,
+        'misc_family':1000}
 
         dr_classe_2_at_cnrs = {'variables_start_date': '03/01/2033', 
         'variables_state': "updated",
@@ -108,7 +111,8 @@ def get_new_parameters():
         'outflows_rent':800,
         'outflows_medical_insurance':60,
         'misc_food_beverages':400,
-        'misc_sports':50}
+        'misc_sports':50,
+        'misc_family':1000}
 
         new_parameters_list = [
         update_us_salary,

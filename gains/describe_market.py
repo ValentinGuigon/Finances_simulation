@@ -48,4 +48,4 @@ def annual_market_returns(market_parameters):
     cleaned_market_name = market_ticker.translate(str.maketrans('', '', '^'))
     file_path = f'./outputs/{cleaned_market_name}_annual_return.png'
     plt.savefig(file_path)  # Change the file extension based on your preferred format (e.g., '.png', '.jpg', '.pdf')
-    plt.show()
+    # plt.show()
