@@ -44,7 +44,7 @@ def get_starting_parameters(market_parameters):
                 'state': "init",
                 'years': 50, 
                 'retirement_year': 36,
-                'tax_on_active_income_gains': 0, # add our tax rate on active income in % terms
+                'tax_on_active_income_gains': 0.07, # add our tax rate on active income in % terms
                 'avg_ann_income_raise': 0.015, # add our annual salary raise in % terms
                 'avg_ann_inflation': 0.015, # add annual inflation rate (mean inflation rate for France 1990-2020)
                 'tax_on_investment_gains': 0.2, # add investment returns tax rate
@@ -70,7 +70,7 @@ def get_new_parameters():
         
         first_us_taxation = {'variables_start_date': '03/01/2026', 
         'variables_state': "updated",
-        'variables_tax_on_active_income_gains': 0.2}
+        'variables_tax_on_active_income_gains': 0.13}
 
         back_to_france = {'variables_start_date': '03/01/2027', 
         'variables_state': "updated",

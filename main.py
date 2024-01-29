@@ -14,7 +14,7 @@ market_ticker = "^SP500TR" # Choose the ticker for the market to simulate
 market_start_year = 2009
 market_end_year = 2023
 market_parameters = [market_ticker, market_start_year, market_end_year]
-generate_new_csv = False # True: generate states csv
+generate_new_csv = True # True: generate states csv
 include_update_states = True # True: simulate with new states as defined in get_historic_data.py
 
 
